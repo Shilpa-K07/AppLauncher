@@ -8,7 +8,8 @@ const routes = [
     path: "/",
     name: "AppLauncher",
     component: AppLauncher
-  }
+  },
+
 ];
 
 const router = new Router({
