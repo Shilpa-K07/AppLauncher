@@ -1,10 +1,6 @@
 <template>
-  <v-app>
-    <!-- app lanucher starts -->
-    <div class="ma-2">
-      <v-icon @click="showApplicationPopup()"> mdi-dots-grid </v-icon>
-    </div>
-
+  <div>
+    <v-icon @click="showApplicationPopup()"> mdi-dots-grid </v-icon>
     <v-dialog v-model="showAppPopup">
       <v-card min-height="800px" style="background: #fffbef">
         <v-text-field
@@ -72,8 +68,7 @@
         </div>
       </v-card>
     </v-dialog>
-    <!--  ends here -->
-  </v-app>
+  </div>
 </template>
 
 <script>

@@ -8,10 +8,12 @@ import "@mdi/font/css/materialdesignicons.css";
 Vue.component("app-launcher", AppLauncher);
 Vue.config.productionTip = false;
 
-new Vue({
-  router,
-  vuetify,
-  render: h => h(App)
-}).$mount("#app");
+window.onload = function() {
+  new Vue({
+    router,
+    vuetify,
+    render: h => h(App)
+  }).$mount("#app");
+};
 
 export { AppLauncher };

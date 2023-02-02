@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
-import AppLauncher from "../views/AppLauncher.vue";
+import AppLauncher from "../views/Index.vue";
 Vue.use(Router);
 
 const routes = [
