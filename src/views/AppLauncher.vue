@@ -24,11 +24,9 @@
                     "
                     class="ml-10"
                   >
-                    <v-img
-                      v-if="mainItem.icon"
-                      :src="require(`../assets/images/${mainItem.icon}`)"
-                      width="20"
-                    />
+                    <v-icon v-if="mainItem.icon" width="20">{{
+                      mainItem.icon
+                    }}</v-icon>
                     <v-menu v-model="mainItem.isOpened" :nudge-width="115">
                       <template v-slot:activator="{ on: menu, attrs }">
                         <v-icon v-bind="attrs" v-on="{ ...menu }"
@@ -81,13 +79,13 @@ export default {
   },
   data: () => ({
     showAppPopup: false
-    /*  applicationsList: [
+    /*   applicationsList: [
       {
         title: "Projects",
         mainItems: [
           {
             title: "Project",
-            icon: "rocket-launch-outline.svg",
+            icon: "mdi-rocket-launch-outline",
             subItems: [
               { title: "New", isOpened: false },
               { title: "Edit", isOpened: false },
@@ -97,11 +95,11 @@ export default {
           },
           {
             title: "Documents",
-            icon: "file-document-outline.svg",
+            icon: "mdi-file-document-outline",
           },
           {
             title: "WBS",
-            icon: "sitemap-outline.svg",
+            icon: "mdi-sitemap-outline",
             subItems: [
               { title: "New", isOpened: false },
               { title: "Existing", isOpened: false },
@@ -109,15 +107,15 @@ export default {
           },
           {
             title: "Gantt",
-            icon: "chart-timeline.svg",
+            icon: "mdi-chart-timeline",
           },
           {
             title: "Minutes",
-            icon: "clipboard-text-clock-outline.svg",
+            icon: "mdi-clipboard-text-clock-outline",
           },
           {
             title: "Riskman",
-            icon: "alarm-light-outline.svg",
+            icon: "mdi-alarm-light-outline",
             subItems: [
               { title: "Dashboard", isOpened: false },
               { title: "New", isOpened: false },
@@ -129,7 +127,7 @@ export default {
           },
           {
             title: "Doc Control",
-            icon: "file-lock-open-outline.svg",
+            icon: "mdi-file-lock-open-outline",
           },
         ],
       },
