@@ -73,17 +73,17 @@
 <script>
 import cloneDeep from "lodash/cloneDeep";
 export default {
-  /* props: {
+  props: {
     applicationsList: {
       type: Array,
       default: () => []
     }
-  }, */
+  },
   data: () => ({
     showAppPopup: false,
     searchText: "",
-    applicationsListCopy: [],
-    applicationsList: [
+    applicationsListCopy: []
+    /*  applicationsList: [
       {
         title: "Projects",
         mainItems: [
@@ -289,7 +289,7 @@ export default {
           }
         ]
       }
-    ]
+    ] */
   }),
   watch: {
     searchText() {
