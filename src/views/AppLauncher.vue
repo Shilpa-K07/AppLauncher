@@ -4,6 +4,7 @@
     <v-dialog v-model="showAppPopup">
       <v-card min-height="800px" style="background: #fffbef">
         <v-text-field
+          v-model="searchText"
           outlined
           prepend-inner-icon="mdi-magnify"
           class="pa-5"
@@ -70,16 +71,19 @@
 </template>
 
 <script>
+import cloneDeep from "lodash/cloneDeep";
 export default {
-  props: {
+  /* props: {
     applicationsList: {
       type: Array,
       default: () => []
     }
-  },
+  }, */
   data: () => ({
-    showAppPopup: false
-    /*   applicationsList: [
+    showAppPopup: false,
+    searchText: "",
+    applicationsListCopy: [],
+    applicationsList: [
       {
         title: "Projects",
         mainItems: [
@@ -90,28 +94,28 @@ export default {
               { title: "New", isOpened: false },
               { title: "Edit", isOpened: false },
               { title: "List", isOpened: false },
-              { title: "Group", isOpened: false },
-            ],
+              { title: "Group", isOpened: false }
+            ]
           },
           {
             title: "Documents",
-            icon: "mdi-file-document-outline",
+            icon: "mdi-file-document-outline"
           },
           {
             title: "WBS",
             icon: "mdi-sitemap-outline",
             subItems: [
               { title: "New", isOpened: false },
-              { title: "Existing", isOpened: false },
-            ],
+              { title: "Existing", isOpened: false }
+            ]
           },
           {
             title: "Gantt",
-            icon: "mdi-chart-timeline",
+            icon: "mdi-chart-timeline"
           },
           {
             title: "Minutes",
-            icon: "mdi-clipboard-text-clock-outline",
+            icon: "mdi-clipboard-text-clock-outline"
           },
           {
             title: "Riskman",
@@ -119,41 +123,41 @@ export default {
             subItems: [
               { title: "Dashboard", isOpened: false },
               { title: "New", isOpened: false },
-              { title: "Browse", isOpened: false },
-            ],
+              { title: "Browse", isOpened: false }
+            ]
           },
           {
-            title: "Report",
+            title: "Report"
           },
           {
             title: "Doc Control",
-            icon: "mdi-file-lock-open-outline",
-          },
-        ],
+            icon: "mdi-file-lock-open-outline"
+          }
+        ]
       },
       {
         title: "Teams",
         mainItems: [
           {
-            title: "Roles",
+            title: "Roles"
           },
           {
-            title: "Profile",
+            title: "Profile"
           },
           {
-            title: "Access",
-          },
-        ],
+            title: "Access"
+          }
+        ]
       },
       {
         title: "Tasks",
         mainItems: [
           {
             title: "Taskman",
-            subItems: [{ title: "New" }, { title: "Browse" }],
+            subItems: [{ title: "New" }, { title: "Browse" }]
           },
           {
-            title: "Sprint",
+            title: "Sprint"
           },
           {
             title: "Kanban",
@@ -164,100 +168,100 @@ export default {
               { title: "Teams", isOpened: false },
               { title: "Products", isOpened: false },
               { title: "Stats", isOpened: false },
-              { title: "Settings", isOpened: false },
-            ],
+              { title: "Settings", isOpened: false }
+            ]
           },
           {
-            title: "To Do",
-          },
-        ],
+            title: "To Do"
+          }
+        ]
       },
       {
         title: "Studies",
         mainItems: [
           {
-            title: "Report",
+            title: "Report"
           },
           {
             title: "Conops",
             subItems: [
               { title: "New", isOpened: false },
-              { title: "Existing", isOpened: false },
-            ],
+              { title: "Existing", isOpened: false }
+            ]
           },
           {
             title: "Use Case",
             subItems: [
               { title: "New", isOpened: false },
-              { title: "Existing", isOpened: false },
-            ],
-          },
-        ],
+              { title: "Existing", isOpened: false }
+            ]
+          }
+        ]
       },
       {
         title: "Wiki",
         mainItems: [
           {
-            title: "Glossary",
+            title: "Glossary"
           },
           {
             title: "Learnings",
             subItems: [
               { title: "New", isOpened: false },
-              { title: "View", isOpened: false },
-            ],
+              { title: "View", isOpened: false }
+            ]
           },
           {
             title: "Announcements",
             subItems: [
               { title: "New", isOpened: false },
-              { title: "History", isOpened: false },
-            ],
-          },
-        ],
+              { title: "History", isOpened: false }
+            ]
+          }
+        ]
       },
       {
         title: "Requirements",
         mainItems: [
           {
-            title: "RStudio",
-          },
-        ],
+            title: "RStudio"
+          }
+        ]
       },
       {
         title: "Tests",
         mainItems: [
           {
-            title: "Editor",
+            title: "Editor"
           },
           {
-            title: "Recorder",
-          },
-        ],
+            title: "Recorder"
+          }
+        ]
       },
       {
         title: "Quality",
         mainItems: [
           {
-            title: "Dashboard",
+            title: "Dashboard"
           },
           {
-            title: "Documents",
+            title: "Documents"
           },
           {
             title: "Checklist",
             subItems: [
               { title: "New", isOpened: false },
               { title: "Existing", isOpened: false },
-              { title: "Map", isOpened: false },
-            ],
+              { title: "Map", isOpened: false }
+            ]
           },
           {
             title: "Review",
             subItems: [
               { title: "New", isOpened: false },
-              { title: "Existing", isOpened: false },
-            ],
+              { title: "Existing", isOpened: false }
+            ]
           },
           {
             title: "Templates",
@@ -266,39 +270,66 @@ export default {
               { title: "Selection", isOpened: false },
               { title: "Existing", isOpened: false },
               { title: "Import", isOpened: false },
-              { title: "Export", isOpened: false },
-            ],
+              { title: "Export", isOpened: false }
+            ]
           },
           {
             title: "Cover Page",
             subItems: [
               { title: "New", isOpened: false },
               { title: "Edit", isOpened: false },
-              { title: "View", isOpened: false },
-            ],
+              { title: "View", isOpened: false }
+            ]
           },
           {
-            title: "Traceability",
+            title: "Traceability"
           },
           {
-            title: "Traceability Map",
-          },
-        ],
-      },
-    ], */
+            title: "Traceability Map"
+          }
+        ]
+      }
+    ]
   }),
-
+  watch: {
+    searchText() {
+      this.getSearchResult();
+    },
+    showAppPopup() {
+      if (!this.showAppPopup) this.searchText = "";
+    }
+  },
+  mounted() {
+    this.applicationsListCopy = cloneDeep(this.applicationsList);
+  },
   methods: {
     showApplicationPopup() {
       this.showAppPopup = true;
     },
+    getSearchResult() {
+      this.applicationsList = [];
+      if (this.searchText) {
+        this.applicationsListCopy.forEach(item => {
+          if (
+            item.title.toLowerCase().includes(this.searchText.toLowerCase())
+          ) {
+            this.applicationsList.push(item);
+          } else {
+            const index = item.mainItems.findIndex(data =>
+              data.title.toLowerCase().includes(this.searchText.toLowerCase())
+            );
+            if (index != -1) {
+              this.applicationsList.push(item);
+            }
+          }
+        });
+      } else {
+        this.applicationsList = cloneDeep(this.applicationsListCopy);
+      }
+    },
     getSelectedData(item, mainItem, subItem) {
       this.$emit("on-click", item, mainItem, subItem);
     }
-  },
-
-  created() {},
-
-  async mounted() {}
+  }
 };
 </script>
